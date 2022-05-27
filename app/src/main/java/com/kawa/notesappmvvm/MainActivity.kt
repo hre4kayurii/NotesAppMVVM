@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.kawa.notesappmvvm.navigation.NotesNavHost
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,23 +23,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+
+                    NotesNavHost()
+
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-    Text(text = "Test $name!")
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     NotesAppMVVMTheme {
-        Greeting("Android")
+        NotesNavHost()
     }
 }
