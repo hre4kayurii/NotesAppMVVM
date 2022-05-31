@@ -23,6 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import com.kawa.notesappmvvm.MainViewModel
 import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.Constants.Keys.SUBTITLE
+import com.kawa.notesappmvvm.utils.Constants.Keys.TITLE
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -48,12 +50,12 @@ fun NoteScreen(navHostController: NavHostController, mViewModel: MainViewModel) 
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Title",
+                        text = TITLE,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 32.dp)
                     )
-                    Text(text = "Subtitle",
+                    Text(text = SUBTITLE,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Light,
                         modifier = Modifier.padding(top = 16.dp))

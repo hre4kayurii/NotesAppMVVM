@@ -19,6 +19,9 @@ import com.kawa.notesappmvvm.MainViewModel
 import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.Constants
+import com.kawa.notesappmvvm.utils.Constants.Keys.ROOM_DATABASE
+import com.kawa.notesappmvvm.utils.Constants.Keys.WHAT_WILL_WE_USE
 import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
 import com.kawa.notesappmvvm.utils.TYPE_ROOM
 
@@ -42,7 +45,7 @@ fun StartScreen(navHostController: NavHostController, mViewModel: MainViewModel)
             verticalArrangement = Arrangement.Center
         ) {
 
-            Text(text = "What will we use?")
+            Text(text = WHAT_WILL_WE_USE)
 
             Button(
                 onClick = {
@@ -55,7 +58,7 @@ fun StartScreen(navHostController: NavHostController, mViewModel: MainViewModel)
                     .padding(vertical = 8.dp)
             )
             {
-                Text(text = "Room database")
+                Text(text = ROOM_DATABASE)
             }
 
             Button(
@@ -69,7 +72,7 @@ fun StartScreen(navHostController: NavHostController, mViewModel: MainViewModel)
                     .padding(vertical = 8.dp)
             )
             {
-                Text(text = "Firebase database")
+                Text(text = Constants.Keys.FIREBASE_DATABASE)
             }
 
         }

@@ -3,11 +3,12 @@ package com.kawa.notesappmvvm.database.room.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kawa.notesappmvvm.model.Note
+import com.kawa.notesappmvvm.utils.Constants
 
 @Dao
 interface NoteRoomDao {
 
-    @Query("SELECT * FROM notes_table")
+    @Query("SELECT * FROM ${Constants.Keys.NOTES_TABLE}")
     fun getAllNotes(): LiveData<List<Note>>
 
     @Insert

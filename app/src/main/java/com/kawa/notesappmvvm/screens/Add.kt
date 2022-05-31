@@ -26,6 +26,10 @@ import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.model.Note
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.Constants.Keys.ADD_NEW_NOTE
+import com.kawa.notesappmvvm.utils.Constants.Keys.ADD_NOTE
+import com.kawa.notesappmvvm.utils.Constants.Keys.NOTE_SUBTITLE
+import com.kawa.notesappmvvm.utils.Constants.Keys.NOTE_TITLE
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -53,7 +57,7 @@ fun AddScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Add new note",
+                text = ADD_NEW_NOTE,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -64,7 +68,7 @@ fun AddScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
                     title = it
                     isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Note title") },
+                label = { Text(text = NOTE_TITLE) },
                 isError = title.isEmpty()
             )
 
@@ -74,7 +78,7 @@ fun AddScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
                     subtitle = it
                     isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Note subtitle") },
+                label = { Text(text = NOTE_SUBTITLE) },
                 isError = subtitle.isEmpty()
             )
 
@@ -93,7 +97,7 @@ fun AddScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
                 }
             )
             {
-                Text(text = "Add note")
+                Text(text = ADD_NOTE)
             }
         }
 
