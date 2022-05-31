@@ -19,6 +19,9 @@ import com.kawa.notesappmvvm.MainViewModel
 import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.TYPE_DATABASE
+import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
+import com.kawa.notesappmvvm.utils.TYPE_ROOM
 
 @Composable
 fun StartScreen(navHostController: NavHostController) {
@@ -41,18 +44,28 @@ fun StartScreen(navHostController: NavHostController) {
 
             Text(text = "What will we use?")
 
-            Button(onClick = {navHostController.navigate(route = NavRoute.Main.route)},
-            modifier = Modifier
-                .width(200.dp)
-                .padding(vertical = 8.dp))
+            Button(
+                onClick = {
+                    mViewModel.initDatabase(TYPE_ROOM)
+                    navHostController.navigate(route = NavRoute.Main.route)
+                },
+                modifier = Modifier
+                    .width(200.dp)
+                    .padding(vertical = 8.dp)
+            )
             {
                 Text(text = "Room database")
             }
 
-            Button(onClick = {navHostController.navigate(route = NavRoute.Main.route)},
+            Button(
+                onClick = {
+                    mViewModel.initDatabase(TYPE_FIREBASE)
+                    navHostController.navigate(route = NavRoute.Main.route)
+                },
                 modifier = Modifier
                     .width(200.dp)
-                    .padding(vertical = 8.dp))
+                    .padding(vertical = 8.dp)
+            )
             {
                 Text(text = "Firebase database")
             }
@@ -63,7 +76,7 @@ fun StartScreen(navHostController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-fun PrevStartScreen(){
+fun PrevStartScreen() {
 
     NotesAppMVVMTheme {
 

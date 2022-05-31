@@ -1,5 +1,6 @@
 package com.kawa.notesappmvvm.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun NoteScreen(navHostController: NavHostController) {
 
