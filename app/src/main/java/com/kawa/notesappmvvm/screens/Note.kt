@@ -2,14 +2,13 @@ package com.kawa.notesappmvvm.screens
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,13 +21,22 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.kawa.notesappmvvm.MainViewModel
 import com.kawa.notesappmvvm.MainViewModelFactory
+import com.kawa.notesappmvvm.model.Note
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.Constants
+import com.kawa.notesappmvvm.utils.Constants.Keys.NONE
 import com.kawa.notesappmvvm.utils.Constants.Keys.SUBTITLE
 import com.kawa.notesappmvvm.utils.Constants.Keys.TITLE
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun NoteScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
+fun NoteScreen(
+    navHostController: NavHostController,
+    mViewModel: MainViewModel,
+    noteId: String?) {
+
+    val notes = mViewModel.readAllNotes().observeAsState(listOf()).value
+    val note = notes.firstOrNull{ it.id == noteId?.toInt()} ?: Note(title = NONE, subtitle = NONE)
 
     Scaffold(
         modifier = Modifier
@@ -41,7 +49,7 @@ fun NoteScreen(navHostController: NavHostController, mViewModel: MainViewModel) 
         ) {
             Card(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .padding(32.dp)
             ) {
                 Column(
@@ -50,16 +58,45 @@ fun NoteScreen(navHostController: NavHostController, mViewModel: MainViewModel) 
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = TITLE,
+                        text = note.title,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 32.dp)
                     )
-                    Text(text = SUBTITLE,
+                    Text(text = note.subtitle,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Light,
                         modifier = Modifier.padding(top = 16.dp))
                 }
+            }
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 32.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Button(onClick = {
+                    
+                }) {
+                    Text(text = Constants.Keys.UPDATE)
+                }
+                Button(onClick = {
+
+                }) {
+                    Text(text = Constants.Keys.DELETE)
+                }
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 32.dp)
+                    .fillMaxWidth(),
+                onClick = {
+
+            }) {
+                Text(text = Constants.Keys.DELETE)
             }
         }
     }
@@ -75,7 +112,11 @@ fun PrevNoteScreen() {
         val mViewModel: MainViewModel =
             viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
 
-        NoteScreen(navHostController = rememberNavController(), mViewModel = mViewModel)
+        NoteScreen(
+            navHostController = rememberNavController(),
+            mViewModel = mViewModel,
+            noteId = "1"
+        )
 
     }
 }

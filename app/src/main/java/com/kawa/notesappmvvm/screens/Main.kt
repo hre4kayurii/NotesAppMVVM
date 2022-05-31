@@ -74,7 +74,7 @@ fun NoteItem(
                 horizontal = 24.dp
             )
             .clickable {
-                navHostController.navigate(NavRoute.Note.route)
+                navHostController.navigate(NavRoute.Note.route+"/${note.id}")
             },
         elevation = 6.dp
     ) {

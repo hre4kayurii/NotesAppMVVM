@@ -22,6 +22,11 @@ object Constants {
         const val WHAT_WILL_WE_USE = "What will we use?"
         const val ROOM_DATABASE = "Room database"
         const val FIREBASE_DATABASE = "Firebase database"
+        const val ID = "Id"
+        const val NONE = "none"
+        const val UPDATE = "Update"
+        const val DELETE = "Delete"
+        const val NAV_BACK = "Back"
     }
 
     object Screens{
