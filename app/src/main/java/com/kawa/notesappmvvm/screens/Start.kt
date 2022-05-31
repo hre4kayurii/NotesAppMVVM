@@ -1,5 +1,6 @@
 package com.kawa.notesappmvvm.screens
 
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -7,15 +8,24 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.kawa.notesappmvvm.MainViewModel
+import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
 
 @Composable
 fun StartScreen(navHostController: NavHostController) {
+
+    val context = LocalContext.current
+    val mViewModel: MainViewModel =
+        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
 
     Scaffold(
         modifier = Modifier
