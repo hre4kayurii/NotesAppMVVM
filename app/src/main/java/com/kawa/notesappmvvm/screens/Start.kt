@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -20,13 +19,12 @@ import com.kawa.notesappmvvm.MainViewModel
 import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
-import com.kawa.notesappmvvm.utils.TYPE_DATABASE
 import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
 import com.kawa.notesappmvvm.utils.TYPE_ROOM
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun StartScreen(navHostController: NavHostController) {
+fun StartScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
 
     val context = LocalContext.current
     val mViewModel: MainViewModel =
@@ -83,8 +81,11 @@ fun StartScreen(navHostController: NavHostController) {
 fun PrevStartScreen() {
 
     NotesAppMVVMTheme {
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
 
-        StartScreen(navHostController = rememberNavController())
+        StartScreen(navHostController = rememberNavController(), mViewModel = mViewModel)
 
     }
 }

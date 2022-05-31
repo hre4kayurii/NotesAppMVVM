@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,13 +32,9 @@ import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(navHostController: NavHostController) {
+fun MainScreen(navHostController: NavHostController, mViewModel: MainViewModel) {
 
-    val context = LocalContext.current
-    val mViewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-
-    //val notes = mViewModel.readTest.observeAsState(listOf()).value
+val notes = mViewModel.readAllNotes().observeAsState(listOf()).value
 
     Scaffold(
         floatingActionButton = {
@@ -55,13 +50,13 @@ fun MainScreen(navHostController: NavHostController) {
         }
     ) {
 
-       /* LazyColumn{
+        LazyColumn{
             items(notes){note ->
                 NoteItem(
                     navHostController = navHostController,
                     note = note)
             }
-        }*/
+        }
     }
 }
 
@@ -112,8 +107,11 @@ fun NoteItem(
 fun PrevMainScreen() {
 
     NotesAppMVVMTheme {
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
 
-        MainScreen(navHostController = rememberNavController())
+        MainScreen(navHostController = rememberNavController(), mViewModel = mViewModel)
 
     }
 }

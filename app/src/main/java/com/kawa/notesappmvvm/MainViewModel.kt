@@ -2,16 +2,15 @@ package com.kawa.notesappmvvm
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.kawa.notesappmvvm.database.room.AppRoomDatabase
 import com.kawa.notesappmvvm.database.room.repository.RoomRepository
 import com.kawa.notesappmvvm.model.Note
 import com.kawa.notesappmvvm.utils.REPOSITORY
 import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
 import com.kawa.notesappmvvm.utils.TYPE_ROOM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) :
     AndroidViewModel(application) {
@@ -32,6 +31,20 @@ class MainViewModel(application: Application) :
             }
         }
     }
+
+
+    fun addNote(note: Note, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.create(note = note){
+                viewModelScope.launch(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        }
+
+    }
+
+    fun readAllNotes() = REPOSITORY.readAll
 
 }
 
