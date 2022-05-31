@@ -1,5 +1,6 @@
 package com.kawa.notesappmvvm.screens
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -23,6 +24,7 @@ import com.kawa.notesappmvvm.utils.TYPE_DATABASE
 import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
 import com.kawa.notesappmvvm.utils.TYPE_ROOM
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun StartScreen(navHostController: NavHostController) {
 
@@ -46,8 +48,9 @@ fun StartScreen(navHostController: NavHostController) {
 
             Button(
                 onClick = {
-                    mViewModel.initDatabase(TYPE_ROOM)
-                    navHostController.navigate(route = NavRoute.Main.route)
+                    mViewModel.initDatabase(TYPE_ROOM) {
+                        navHostController.navigate(route = NavRoute.Main.route)
+                    }
                 },
                 modifier = Modifier
                     .width(200.dp)
@@ -59,8 +62,9 @@ fun StartScreen(navHostController: NavHostController) {
 
             Button(
                 onClick = {
-                    mViewModel.initDatabase(TYPE_FIREBASE)
-                    navHostController.navigate(route = NavRoute.Main.route)
+                    mViewModel.initDatabase(TYPE_FIREBASE) {
+                        navHostController.navigate(route = NavRoute.Main.route)
+                    }
                 },
                 modifier = Modifier
                     .width(200.dp)
