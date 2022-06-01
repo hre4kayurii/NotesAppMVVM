@@ -7,9 +7,7 @@ import com.kawa.notesappmvvm.database.firebase.AppFirebaseRepository
 import com.kawa.notesappmvvm.database.room.AppRoomDatabase
 import com.kawa.notesappmvvm.database.room.repository.RoomRepository
 import com.kawa.notesappmvvm.model.Note
-import com.kawa.notesappmvvm.utils.REPOSITORY
-import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
-import com.kawa.notesappmvvm.utils.TYPE_ROOM
+import com.kawa.notesappmvvm.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -73,6 +71,18 @@ class MainViewModel(application: Application) :
         }
     }
     fun readAllNotes() = REPOSITORY.readAll
+
+    fun signOut(onSuccess: () -> Unit){
+        when(DB_TYPE.value){
+            TYPE_FIREBASE,
+                TYPE_ROOM ->{
+                    REPOSITORY.signOut()
+                DB_TYPE.value = Constants.Keys.EMPTY
+                onSuccess()
+                }
+            else -> Log.d("checkData", "signOut: ${DB_TYPE.value}")
+        }
+    }
 
 }
 

@@ -42,7 +42,7 @@ fun NoteScreen(
 
     val notes = mViewModel.readAllNotes().observeAsState(listOf()).value
     //val note = notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subtitle = NONE)
-    val note = when(DB_TYPE) {
+    val note = when(DB_TYPE.value) {
         TYPE_FIREBASE -> notes.firstOrNull() { it.firebaseId == noteId} ?: Note()
         TYPE_ROOM -> notes.firstOrNull() { it.id == noteId?.toInt()} ?: Note()
         else -> Note()

@@ -70,7 +70,7 @@ fun NoteItem(
     note: Note
 ) {
 
-    val noteId = when(DB_TYPE){
+    val noteId = when(DB_TYPE.value){
         TYPE_FIREBASE -> note.firebaseId
         TYPE_ROOM -> note.id
         else -> Constants.Keys.EMPTY

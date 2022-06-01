@@ -1,6 +1,7 @@
 package com.kawa.notesappmvvm.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,9 +17,9 @@ sealed class NavRoute(val route: String){
 }
 
 @Composable
-fun NotesNavHost(mViewModel: MainViewModel) {
+fun NotesNavHost(mViewModel: MainViewModel, navController: NavHostController) {
 
-    val navController = rememberNavController()
+
     NavHost(navController = navController,
         startDestination = NavRoute.Start.route){
         composable(NavRoute.Start.route){
