@@ -3,6 +3,7 @@ package com.kawa.notesappmvvm
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.kawa.notesappmvvm.database.firebase.AppFirebaseRepository
 import com.kawa.notesappmvvm.database.room.AppRoomDatabase
 import com.kawa.notesappmvvm.database.room.repository.RoomRepository
 import com.kawa.notesappmvvm.model.Note
@@ -28,6 +29,15 @@ class MainViewModel(application: Application) :
                 val dao = AppRoomDatabase.getInstance(context = context).getRoomDao()
                 REPOSITORY = RoomRepository(dao)
                 onSuccess()
+            }
+
+            TYPE_FIREBASE -> {
+
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase(
+                    {onSuccess()},
+                    {Log.d("checkData", "Error: $it")}
+                )
             }
         }
     }
