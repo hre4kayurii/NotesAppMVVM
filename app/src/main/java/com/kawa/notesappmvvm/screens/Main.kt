@@ -29,6 +29,10 @@ import com.kawa.notesappmvvm.MainViewModelFactory
 import com.kawa.notesappmvvm.model.Note
 import com.kawa.notesappmvvm.navigation.NavRoute
 import com.kawa.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.kawa.notesappmvvm.utils.Constants
+import com.kawa.notesappmvvm.utils.DB_TYPE
+import com.kawa.notesappmvvm.utils.TYPE_FIREBASE
+import com.kawa.notesappmvvm.utils.TYPE_ROOM
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -66,6 +70,12 @@ fun NoteItem(
     note: Note
 ) {
 
+    val noteId = when(DB_TYPE){
+        TYPE_FIREBASE -> note.firebaseId
+        TYPE_ROOM -> note.id
+        else -> Constants.Keys.EMPTY
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -74,7 +84,7 @@ fun NoteItem(
                 horizontal = 24.dp
             )
             .clickable {
-                navHostController.navigate(NavRoute.Note.route+"/${note.id}")
+                navHostController.navigate(NavRoute.Note.route+"/${noteId}")
             },
         elevation = 6.dp
     ) {

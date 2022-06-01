@@ -15,13 +15,16 @@ import com.kawa.notesappmvvm.utils.PASSWORD
 class AppFirebaseRepository : DatabaseRepository {
 
     private val mAuth = FirebaseAuth.getInstance()
+
+
     private val database = Firebase.database.reference
         .child(mAuth.currentUser?.uid.toString())
 
-    override val readAll: LiveData<List<Note>>
-        get() = AllNotesLiveData()
+    override val readAll: LiveData<List<Note>> = AllNotesLiveData()
 
     override suspend fun create(note: Note, onSuccess: () -> Unit) {
+
+        Log.d("checkData", "mAuth = "+ mAuth.currentUser?.uid.toString())
 
         val noteId = database.push().key.toString()
         val mapNotes = hashMapOf<String, Any>()
@@ -37,11 +40,29 @@ class AppFirebaseRepository : DatabaseRepository {
     }
 
     override suspend fun update(note: Note, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+
+        Log.d("checkData", "mAuth = "+ mAuth.currentUser?.uid.toString())
+
+        val noteId = note.firebaseId
+        val mapNotes = hashMapOf<String, Any>()
+
+        mapNotes[FIREBASE_ID] = noteId
+        mapNotes[Constants.Keys.TITLE] = note.title
+        mapNotes[Constants.Keys.SUBTITLE] = note.subtitle
+
+        database.child(noteId)
+            .updateChildren(mapNotes)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { Log.d("checkData", "Error update to firebase") }
     }
 
     override suspend fun delete(note: Note, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+
+        database.child(note.firebaseId)
+            .removeValue()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { Log.d("checkData", "Error delete note in firebase") }
+
     }
 
     override fun signOut() {
