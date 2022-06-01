@@ -27,6 +27,9 @@ object Constants {
         const val UPDATE = "Update"
         const val DELETE = "Delete"
         const val NAV_BACK = "Back"
+        const val EMPTY = ""
+        const val EDIT_NOTE = "Edit note"
+        const val UPDATE_NOTE = "Update note"
     }
 
     object Screens{
